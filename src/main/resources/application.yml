@@ -17,6 +17,6 @@ spring:
     generate-ddl: false
 
     hibernate:
-      ddl: name
+      ddl-auto: name
 
     show-sql: true
