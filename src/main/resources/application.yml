@@ -18,3 +18,5 @@ spring:
 
     hibernate:
       ddl: name
+
+    show-sql: true
