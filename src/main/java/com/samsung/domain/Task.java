@@ -21,7 +21,7 @@ public class Task {
     private int id;
 
     @Column(name = "name")
-    private int coef;
+    private String name;
 
     @ManyToOne(targetEntity = Author.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id")
