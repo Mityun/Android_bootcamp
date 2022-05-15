@@ -1,6 +1,7 @@
 package com.samsung.service;
 
 import com.samsung.domain.Author;
+import com.samsung.domain.Comment;
 import com.samsung.domain.Task;
 import com.samsung.repository.AuthorRepository;
 import com.samsung.repository.TaskRepository;
@@ -50,7 +51,18 @@ public class LibDemoService {
 
         List<Task> taskList = taskRepository.findAll();
 
-        taskList.stream().map(Task::getId).forEach(System.out::println);
+        for(Task task : taskList){
+
+            System.out.println(task.getName()+":");
+            System.out.println(task.getAuthor().getName()+ "," + task.getImportance().getCoef());
+
+            List<Comment> commentList = task.getCommentList();
+
+            for (Comment comment : commentList){
+                System.out.println(comment.getContent());
+            }
+
+        }
     }
 
 }
