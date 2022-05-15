@@ -38,4 +38,17 @@ class AuthorRepositoryTest {
 
         assertThat(actualAuthor).isEqualTo(expectedAuthor);
     }
+    @Test
+    @DisplayName("должен удалять автора по id")
+    void shouldDeleteAuthorById(){
+
+        int size = authorRepository.findAll().size();
+
+        authorRepository.deleteById(2);
+
+        entityManager.flush();
+        int size1 = authorRepository.findAll().size();
+
+        assertThat(size).isEqualTo(size1 + 1);
+    }
 }
