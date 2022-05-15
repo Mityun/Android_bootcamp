@@ -4,6 +4,7 @@ import com.samsung.domain.Author;
 import com.samsung.domain.Comment;
 import com.samsung.domain.Task;
 import com.samsung.repository.AuthorRepository;
+import com.samsung.repository.CommentRepository;
 import com.samsung.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,9 @@ public class LibDemoService {
 
     private final TaskRepository taskRepository;
 
-    public void authorDemo(){
+    private final CommentRepository commentRepository;
+
+    public void authorDemo() {
 
         List<Author> authorList = authorRepository.findAll();
 
@@ -47,21 +50,34 @@ public class LibDemoService {
     }
 
     @Transactional
-    public void taskDemo(){
+    public void taskDemo() {
 
         List<Task> taskList = taskRepository.findAll();
 
-        for(Task task : taskList){
+        for (Task task : taskList) {
 
-            System.out.println(task.getName()+":");
-            System.out.println(task.getAuthor().getName()+ "," + task.getImportance().getCoef());
+            System.out.println(task.getName() + ":");
+            System.out.println(task.getAuthor().getName() + "," + task.getImportance().getCoef());
 
             List<Comment> commentList = task.getCommentList();
 
-            for (Comment comment : commentList){
+            for (Comment comment : commentList) {
                 System.out.println(comment.getContent());
             }
 
+        }
+    }
+    @Transactional
+    public void commentDemo() {
+
+        commentRepository.updateCommentById(1, "ничего не понятно, но очень интересно");
+
+        List<Comment> commentList = commentRepository.findAll();
+
+        for (Comment comment : commentList) {
+
+            System.out.println(comment.getTask().getName() + ":");
+            System.out.println(comment.getId() + " - " + comment.getContent());
         }
     }
 
