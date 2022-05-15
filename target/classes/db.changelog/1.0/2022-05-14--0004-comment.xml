@@ -29,7 +29,9 @@
             </column>
 
             <column name="task_id" type="NUMERIC(19,0)">
-                <constraints nullable="false" foreignKeyName="fk_comment_task" references="task(id)"
+                <constraints nullable="false"
+                             foreignKeyName="fk_comment_task"
+                             references="task(id)"
                              deleteCascade="true"/>
             </column>
         </createTable>

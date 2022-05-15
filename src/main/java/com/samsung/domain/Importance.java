@@ -21,5 +21,4 @@ public class Importance {
 
     @Column(name = "name")
     private String name;
-
 }

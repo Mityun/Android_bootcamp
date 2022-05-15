@@ -21,7 +21,8 @@
             <column name="id"
                     type="NUMERIC(19,0)"
                     autoIncrement="true">
-                <constraints primaryKey="true" nullable="false"/>
+                <constraints primaryKey="true"
+                             nullable="false"/>
             </column>
 
             <column name="name" type="VARCHAR(100)">
@@ -29,12 +30,16 @@
             </column>
 
             <column name="author_id" type="NUMERIC(19,0)">
-                <constraints nullable="false" foreignKeyName="fk_task_author" references="author(id)"
+                <constraints nullable="false"
+                             foreignKeyName="fk_task_author"
+                             references="author(id)"
                              deleteCascade="true"/>
             </column>
 
             <column name="importance_id" type="NUMERIC(19,0)">
-                <constraints nullable="false" foreignKeyName="fk_task_importance" references="importance(id)"
+                <constraints nullable="false"
+                             foreignKeyName="fk_task_importance"
+                             references="importance(id)"
                              deleteCascade="true"/>
             </column>
         </createTable>
