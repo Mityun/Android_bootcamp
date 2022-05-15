@@ -19,6 +19,7 @@ public class Importance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "coef")
-    private int coef;
+    @Column(name = "name")
+    private String name;
+
 }

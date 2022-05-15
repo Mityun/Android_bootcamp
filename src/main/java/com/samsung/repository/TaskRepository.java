@@ -12,4 +12,6 @@ public interface TaskRepository extends JpaRepository<Task, Integer> {
     @EntityGraph(attributePaths = {"author", "importance", "commentList"}) // вместо кучи запросов делаем один запрос и создаем одну большую таблицу
     List<Task> findAll();
 
+    List<Task>  findByName(String name);
+
 }

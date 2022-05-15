@@ -24,7 +24,7 @@
                 <constraints primaryKey="true" nullable="false"/>
             </column>
 
-            <column name="coef" type="NUMERIC(19,0)">
+            <column name="name" type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
         </createTable>

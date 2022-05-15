@@ -47,6 +47,8 @@ public class LibDemoService {
             System.out.println(author1);
         }
         System.out.println("==========");
+
+        System.out.println(authorRepository.findByName("мой мир"));
     }
 
     @Transactional
@@ -57,7 +59,7 @@ public class LibDemoService {
         for (Task task : taskList) {
 
             System.out.println(task.getName() + ":");
-            System.out.println(task.getAuthor().getName() + "," + task.getImportance().getCoef());
+            System.out.println(task.getAuthor().getName() + "," + task.getImportance().getName());
 
             List<Comment> commentList = task.getCommentList();
 
@@ -76,8 +78,15 @@ public class LibDemoService {
 
         for (Comment comment : commentList) {
 
-            System.out.println(comment.getTask().getName() + ":");
             System.out.println(comment.getId() + " - " + comment.getContent());
+        }
+
+        commentList = commentRepository.findByTaskId(2);
+
+        for (Comment comment : commentList) {
+
+            System.out.println(comment.getId() + " - " + comment.getContent());
+
         }
     }
 
