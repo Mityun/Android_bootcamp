@@ -23,7 +23,7 @@ public interface TaskService {
 
     Task getById(int id);
 
-    Task getByName(String name);
+    List <Task> getByName(String name);
 
     void deleteById(int id);
 }

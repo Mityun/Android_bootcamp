@@ -23,11 +23,11 @@ public class Task {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(targetEntity = Author.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Author.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "author_id")
     private Author author;
 
-    @ManyToOne(targetEntity = Importance.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Importance.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "importance_id")
     private Importance importance;
 

@@ -62,12 +62,12 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public Task getById(int id) {
-        return null;
+        return taskRepository.getById(id);
     }
 
     @Override
-    public Task getByName(String name) {
-        return null;
+    public List <Task> getByName(String name) {
+        return taskRepository.findByName(name);
     }
 
     @Override
