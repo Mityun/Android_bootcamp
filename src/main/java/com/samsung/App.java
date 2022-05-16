@@ -19,7 +19,7 @@ public class App {
 
         ConfigurableApplicationContext context = SpringApplication.run(App.class, args);
 
-        context.getBean(LibDemoService.class).authorDemo();
+        context.getBean(LibDemoService.class).taskDemo();
 
         context.close();
 

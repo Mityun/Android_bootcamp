@@ -17,15 +17,18 @@ import java.util.List;
 @RequiredArgsConstructor
 public class LibDemoService {
 
-    private final AuthorRepository authorRepository;
+    private final AuthorService authorService;
 
-    private final TaskRepository taskRepository;
+    private final ImportanceService importanceService;
+
+    private final TaskService taskService;
+
 
     private final CommentRepository commentRepository;
 
     public void authorDemo() {
 
-        List<Author> authorList = authorRepository.findAll();
+        List<Author> authorList = authorService.getAll();
 
         System.out.println("==========");
         for (Author author : authorList) {
@@ -34,12 +37,10 @@ public class LibDemoService {
         }
         System.out.println("==========");
 
-        Author author = Author.builder()
-                .name("Borys")
-                .build();
 
-        authorRepository.save(author);
-        authorList = authorRepository.findAll();
+
+        authorService.update(1, "Ivan");
+        authorList = authorService.getAll();
 
         System.out.println("==========");
         for (Author author1 : authorList) {
@@ -48,13 +49,12 @@ public class LibDemoService {
         }
         System.out.println("==========");
 
-        System.out.println(authorRepository.findByName("мой мир"));
     }
 
     @Transactional
     public void taskDemo() {
 
-        List<Task> taskList = taskRepository.findAll();
+        List<Task> taskList = taskService.getAll();
 
         for (Task task : taskList) {
 
@@ -66,28 +66,49 @@ public class LibDemoService {
             for (Comment comment : commentList) {
                 System.out.println(comment.getContent());
             }
+        }
 
+        taskService.insert(
+                "Org name 4",
+                "Author 4",
+                "Importance high"
+                );
+
+        System.out.println("=====================");
+        taskList = taskService.getAll();
+        for (Task task : taskList) {
+
+            System.out.println(task.getName() + ":");
+            System.out.println(task.getAuthor().getName() + "," + task.getImportance().getName());
+
+            List<Comment> commentList = task.getCommentList();
+
+            if (commentList != null) {
+                for (Comment comment : commentList) {
+                    System.out.println(comment.getContent());
+                }
+            }
         }
     }
     @Transactional
     public void commentDemo() {
 
-        commentRepository.updateCommentById(1, "ничего не понятно, но очень интересно");
-
-        List<Comment> commentList = commentRepository.findAll();
-
-        for (Comment comment : commentList) {
-
-            System.out.println(comment.getId() + " - " + comment.getContent());
-        }
-
-        commentList = commentRepository.findByTaskId(2);
-
-        for (Comment comment : commentList) {
-
-            System.out.println(comment.getId() + " - " + comment.getContent());
-
-        }
+//        commentRepository.updateCommentById(1, "ничего не понятно, но очень интересно");
+//
+//        List<Comment> commentList = commentRepository.findAll();
+//
+//        for (Comment comment : commentList) {
+//
+//            System.out.println(comment.getId() + " - " + comment.getContent());
+//        }
+//
+//        commentList = commentRepository.findByTaskId(2);
+//
+//        for (Comment comment : commentList) {
+//
+//            System.out.println(comment.getId() + " - " + comment.getContent());
+//
+//        }
     }
 
 }
