@@ -69,8 +69,8 @@ public class LibDemoService {
         }
 
         taskService.insert(
-                "Org name 4",
-                "Author 4",
+                "Org name 3",
+                "Author 3",
                 "Importance high"
                 );
 

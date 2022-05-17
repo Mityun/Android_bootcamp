@@ -21,13 +21,11 @@ public class App {
 
         context.getBean(LibDemoService.class).taskDemo();
 
-        context.close();
-
-//        try {
-//            Console.main(args);
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
+        try {
+            Console.main(args);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
 
     }
 }

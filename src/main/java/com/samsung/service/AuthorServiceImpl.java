@@ -28,11 +28,13 @@ public class AuthorServiceImpl implements AuthorService{
 
     @Override
     public Author getById(int id) {
+
         return authorRepository.getById(id);
     }
 
     @Override
     public Author getByName(String name) {
+
         return authorRepository.findByName(name);
     }
 
