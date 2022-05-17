@@ -26,6 +26,7 @@ public class TaskDto {
 
     private List<CommentDto> commentDtoList;
 
+
     public static TaskDto toDto(Task task){
 
         List<CommentDto> commentDtoList1 = new ArrayList<>();
