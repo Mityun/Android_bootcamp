@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CommentService {
 
-    Comment insert(Comment comment);
+    Comment insert(String content, int taskId);
 
     List<Comment> getAll();
 
@@ -15,4 +15,5 @@ public interface CommentService {
     Comment update(int id, String content);
 
     void deleteById(int id);
+
 }
