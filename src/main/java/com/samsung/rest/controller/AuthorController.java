@@ -56,5 +56,22 @@ public class AuthorController {
         return AuthorDto.toDto(author);
     }
 
+    @PostMapping("/author/{id}/name")
+    public AuthorDto updateNameById(
+            @PathVariable int id,
+            @RequestParam String name
+    ) {
+
+        return AuthorDto.toDto(
+                authorService.update(id, name)
+        );
+    }
+
+    @GetMapping("/author/name")
+    public AuthorDto getAuthorByName(@RequestParam String name) {
+
+        return AuthorDto.toDto(authorService.getByName(name));
+    }
+
 }
 
