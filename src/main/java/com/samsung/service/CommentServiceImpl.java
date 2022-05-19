@@ -1,7 +1,9 @@
 package com.samsung.service;
 
 import com.samsung.domain.Comment;
+import com.samsung.domain.Task;
 import com.samsung.repository.CommentRepository;
+import com.samsung.repository.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,8 +15,18 @@ public class CommentServiceImpl implements CommentService{
 
     private final CommentRepository commentRepository;
 
-    @Override
-    public Comment insert(Comment comment) {
+    private final TaskRepository taskRepository;
+
+
+    public Comment insert(String content, int taskId) {
+
+        Task task = taskRepository.findById(taskId).orElse(null);
+
+        Comment comment = Comment.builder()
+                .content(content)
+                .task(task)
+                .build();
+
         return commentRepository.save(comment);
     }
 
