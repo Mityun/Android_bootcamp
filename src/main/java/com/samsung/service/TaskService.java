@@ -15,8 +15,8 @@ public interface TaskService {
     Task update(
             int id,
             String nameTask,
-            String nameAuthor,
-            String nameImportance
+            int nameAuthor,
+            int nameImportance
     );
 
     List <Task> getAll();

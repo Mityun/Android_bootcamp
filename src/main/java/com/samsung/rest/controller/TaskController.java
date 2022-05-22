@@ -1,9 +1,14 @@
 package com.samsung.rest.controller;
 
 
+import com.samsung.domain.Author;
+import com.samsung.domain.Importance;
 import com.samsung.domain.Task;
 import com.samsung.rest.dto.TaskDto;
+import com.samsung.service.AuthorService;
+import com.samsung.service.ImportanceService;
 import com.samsung.service.TaskService;
+import com.samsung.view.TaskView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +20,10 @@ import java.util.stream.Collectors;
 public class TaskController {
 
     private final TaskService taskService;
+
+    private final AuthorService authorService;
+
+    private final ImportanceService importanceService;
 
     @PostMapping("/task")
     public TaskDto createNewTask(
@@ -38,19 +47,16 @@ public class TaskController {
     }
 
 
-    @PostMapping("/task/{id}/")
+    @PutMapping("/task/{id}")
     public TaskDto updateTaskById(
             @PathVariable int id,
-            @RequestParam String newTaskName,
-            @RequestParam String newImportanceName,
-            @RequestParam String newAuthorName
-    ) {
-
+            @RequestBody TaskView taskView
+            ) {
         Task task = taskService.update(
                 id,
-                newTaskName,
-                newImportanceName,
-                newAuthorName
+                taskView.getName(),
+                taskView.getImportanceId(),
+                taskView.getAuthorId()
         );
 
         return TaskDto.toDto(task);

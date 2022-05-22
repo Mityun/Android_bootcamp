@@ -18,13 +18,5 @@ public class App {
     public static void main(String[] args) {
 
         ConfigurableApplicationContext context = SpringApplication.run(App.class, args);
-
-//        context.getBean(LibDemoService.class).taskDemo();
-//
-//        try {
-//            Console.main(args);
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
     }
 }
