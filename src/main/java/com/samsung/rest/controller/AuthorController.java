@@ -3,6 +3,7 @@ package com.samsung.rest.controller;
 import com.samsung.domain.Author;
 import com.samsung.rest.dto.AuthorDto;
 import com.samsung.service.AuthorService;
+import com.samsung.view.AuthorView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,18 +27,27 @@ public class AuthorController {
     }
 
     @PostMapping("/author")
-    public AuthorDto insertAuthor(@RequestBody AuthorDto authorDto){
+    public AuthorDto insertAuthor(@RequestBody AuthorView authorView){
 
-        Author author = authorService.insert(AuthorDto.toDomainObject(authorDto));
+        Author author = authorService.insert(
+                authorView.getName()
+        );
+        
         return AuthorDto.toDto(author);
 
     }
 
     @PutMapping("/author/{id}")
-    public AuthorDto updateAuthor(@PathVariable int id,
-                                  @RequestParam String name){
+    public AuthorDto updateAuthor(
+            @PathVariable int id,
+            @RequestBody AuthorView authorView
+    ){
 
-        Author author = authorService.update(id, name);
+        Author author = authorService.update(
+                id,
+                authorView.getName()
+        );
+
         return AuthorDto.toDto(author);
 
     }

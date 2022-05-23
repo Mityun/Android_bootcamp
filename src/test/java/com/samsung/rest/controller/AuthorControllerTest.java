@@ -45,7 +45,7 @@ class AuthorControllerTest {
     @Test
     void shouldCreateNewAuthor() throws Exception {
 
-        given(authorService.insert(AUTHOR1)).willReturn(AUTHOR1);
+        given(authorService.insert(AUTHOR1.getName())).willReturn(AUTHOR1);
 
         AuthorDto expectedResult = AuthorDto.toDto(AUTHOR1);
 
