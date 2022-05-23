@@ -31,8 +31,9 @@ public class TaskController {
     ) {
         Task task = taskService.insert(
                 taskView.getName(),
-                taskView.getImportanceId(),
-                taskView.getAuthorId()
+                taskView.getAuthorId(),
+                taskView.getImportanceId()
+
         );
 
         return TaskDto.toDto(task);
@@ -57,8 +58,8 @@ public class TaskController {
         Task task = taskService.update(
                 id,
                 taskView.getName(),
-                taskView.getImportanceId(),
-                taskView.getAuthorId()
+                taskView.getAuthorId(),
+                taskView.getImportanceId()
         );
 
         return TaskDto.toDto(task);
