@@ -3,6 +3,8 @@ package com.samsung.rest.controller;
 import com.samsung.domain.Importance;
 import com.samsung.rest.dto.ImportanceDto;
 import com.samsung.service.ImportanceService;
+import com.samsung.view.ImportanceView;
+import com.samsung.view.TaskView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Import;
 import org.springframework.web.bind.annotation.*;
@@ -27,18 +29,24 @@ public class ImportanceController {
     }
 
     @PostMapping("/importance")
-    public ImportanceDto insertImportance(@RequestBody ImportanceDto importanceDto){
+    public ImportanceDto insertImportance(@RequestBody ImportanceView importanceView){
 
-        Importance importance = importanceService.insert(ImportanceDto.toDomainObject(importanceDto));
+        Importance importance = importanceService.insert(
+                importanceView.getName()
+        );
+
         return ImportanceDto.toDto(importance);
-
     }
 
     @PutMapping("/importance/{id}")
     public ImportanceDto updateImportance(@PathVariable int id,
-                               @RequestParam String name){
+                                          @RequestBody ImportanceView importanceView){
 
-        Importance importance = importanceService.update(id, name);
+        Importance importance = importanceService.update(
+                id,
+                importanceView.getName()
+        );
+
         return ImportanceDto.toDto(importance);
 
     }
