@@ -78,6 +78,7 @@ public class TaskServiceImpl implements TaskService{
             }
 
             Task task = Task.builder()
+                    .id(id)
                     .name(nameTask)
                     .author(author)
                     .importance(importance)
