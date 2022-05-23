@@ -27,12 +27,14 @@ public class TaskController {
 
     @PostMapping("/task")
     public TaskDto createNewTask(
-            @RequestParam String nameTask,
-            @RequestParam String nameImportance,
-            @RequestParam String nameAuthor
+            @RequestBody TaskView taskView
     ) {
+        Task task = taskService.insert(
+                taskView.getName(),
+                taskView.getImportanceId(),
+                taskView.getAuthorId()
+        );
 
-        Task task = taskService.insert(nameTask, nameImportance, nameAuthor);
         return TaskDto.toDto(task);
     }
 

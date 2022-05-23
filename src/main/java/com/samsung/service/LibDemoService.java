@@ -70,8 +70,8 @@ public class LibDemoService {
 
         taskService.insert(
                 "Org name 3",
-                "Author 3",
-                "Importance high"
+                1,
+                2
                 );
 
         System.out.println("=====================");

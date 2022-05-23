@@ -8,8 +8,8 @@ public interface TaskService {
 
     Task insert(
             String nameTask,
-            String nameAuthor,
-            String nameImportance
+            int authorId,
+            int importanceId
     );
 
     Task update(
