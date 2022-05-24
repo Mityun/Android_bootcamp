@@ -31,5 +31,7 @@ public class Task {
     @JoinColumn(name = "importance_id")
     private Importance importance;
 
+    @Column(name = "description")
+    private String description;
     
 }

@@ -24,13 +24,16 @@ public class TaskDto {
 
     private ImportanceDto importanceDto;
 
+    private String description;
+
     public static TaskDto toDto(Task task){
 
         return new TaskDto(
                 task.getId(),
                 task.getName(),
                 AuthorDto.toDto(task.getAuthor()),
-                ImportanceDto.toDto(task.getImportance())
+                ImportanceDto.toDto(task.getImportance()),
+                task.getDescription()
                 );
     }
 }
