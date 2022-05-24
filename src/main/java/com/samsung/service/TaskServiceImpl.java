@@ -22,37 +22,68 @@ public class TaskServiceImpl implements TaskService{
     private final TaskRepository taskRepository;
 
     @Override
-    public Task insert(String nameTask, String nameAuthor, String nameImportance) {
+    public Task insert(String nameTask, int authorId, int importanceId) {
 
-        Author author = authorRepository.findByName(nameAuthor);
+        try {
+            Author author = authorRepository.findById(authorId).orElseThrow(() -> new Exception());
 
-        if (author == null){
-            author = Author.builder()
-                    .name(nameAuthor)
+
+            if (author == null) {
+                author = Author.builder()
+                        .name(author.getName())
+                        .build();
+            }
+
+            Importance importance = importanceRepository.findById(importanceId).orElseThrow(() -> new Exception());
+
+            if (importance == null) {
+
+                importance = Importance.builder()
+                        .name(importance.getName())
+                        .build();
+            }
+
+            Task task = Task.builder()
+                    .name(nameTask)
+                    .author(author)
+                    .importance(importance)
                     .build();
+            return taskRepository.save(task);
         }
+        catch (Exception e){
 
-        Importance importance = importanceRepository.findByName(nameImportance);
-
-        if (importance == null){
-
-            importance = Importance.builder()
-                    .name(nameImportance)
-                    .build();
+            return null;
         }
-
-        Task task = Task.builder()
-                .name(nameTask)
-                .author(author)
-                .importance(importance)
-
-                .build();
-        return taskRepository.save(task);
     }
 
     @Override
-    public Task update(int id, String nameTask, String nameAuthor, String nameImportance) {
-        return null;
+    public Task update(int id, String nameTask, int authorId, int importanceId) {
+        try {
+            Author author = authorRepository.findById(authorId).orElseThrow(IllegalArgumentException::new);
+
+            Importance importance = importanceRepository.findById(importanceId).orElseThrow(IllegalArgumentException::new);
+
+            taskRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+
+            Task task = Task.builder()
+                    .id(id)
+                    .name(nameTask)
+                    .author(author)
+                    .importance(importance)
+                    .build();
+            return taskRepository.save(task);
+        }
+        catch (IllegalArgumentException iae){
+
+            System.out.println(iae.getMessage() + " Несуществующий id.");
+            throw iae;
+
+        }
+        catch (Exception e){
+
+            System.out.println(e.getMessage());
+            throw e;
+        }
     }
 
     @Override

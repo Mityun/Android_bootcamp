@@ -14,9 +14,11 @@ public class ImportanceServiceImpl implements ImportanceService{
     private final ImportanceRepository importanceRepository;
 
     @Override
-    public Importance insert(Importance importance) {
-        //проверка на корректность данных
+    public Importance insert(String name) {
 
+        Importance importance = Importance.builder()
+                .name(name)
+                .build();
         return importanceRepository.save(importance);
     }
 
@@ -37,11 +39,11 @@ public class ImportanceServiceImpl implements ImportanceService{
     }
 
     @Override
-    public Importance update(int id, String nameImportance) {
+    public Importance update(int id, String name) {
 
         Importance importance = Importance.builder()
                 .id(id)
-                .name(nameImportance)
+                .name(name)
                 .build();
 
         return importanceRepository.save(importance);

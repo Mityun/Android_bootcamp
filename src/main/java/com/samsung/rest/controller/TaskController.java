@@ -1,10 +1,17 @@
 package com.samsung.rest.controller;
 
 
+import com.samsung.domain.Author;
+import com.samsung.domain.Importance;
 import com.samsung.domain.Task;
 import com.samsung.rest.dto.TaskDto;
+import com.samsung.service.AuthorService;
+import com.samsung.service.ImportanceService;
 import com.samsung.service.TaskService;
+import com.samsung.view.TaskView;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,14 +23,21 @@ public class TaskController {
 
     private final TaskService taskService;
 
+    private final AuthorService authorService;
+
+    private final ImportanceService importanceService;
+
     @PostMapping("/task")
     public TaskDto createNewTask(
-            @RequestParam String nameTask,
-            @RequestParam String nameImportance,
-            @RequestParam String nameAuthor
+            @RequestBody TaskView taskView
     ) {
+        Task task = taskService.insert(
+                taskView.getName(),
+                taskView.getAuthorId(),
+                taskView.getImportanceId()
 
-        Task task = taskService.insert(nameTask, nameImportance, nameAuthor);
+        );
+
         return TaskDto.toDto(task);
     }
 
@@ -38,22 +52,27 @@ public class TaskController {
     }
 
 
-    @PostMapping("/task/{id}/")
-    public TaskDto updateTaskById(
+    @PutMapping("/task/{id}")
+    public ResponseEntity updateTaskById(
             @PathVariable int id,
-            @RequestParam String newTaskName,
-            @RequestParam String newImportanceName,
-            @RequestParam String newAuthorName
-    ) {
+            @RequestBody TaskView taskView
+            )
+    {
+        try {
+            Task task = taskService.update(
+                    id,
+                    taskView.getName(),
+                    taskView.getAuthorId(),
+                    taskView.getImportanceId()
+            );
 
-        Task task = taskService.update(
-                id,
-                newTaskName,
-                newImportanceName,
-                newAuthorName
-        );
+            return new ResponseEntity<TaskDto>(TaskDto.toDto(task), HttpStatus.OK);
+        }
+        catch (IllegalArgumentException iae){
 
-        return TaskDto.toDto(task);
+            return new ResponseEntity<String>("Несуществующий id!", HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @GetMapping("/task/{id}")

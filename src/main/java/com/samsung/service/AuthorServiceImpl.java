@@ -14,8 +14,11 @@ public class AuthorServiceImpl implements AuthorService{
     private final AuthorRepository authorRepository;
 
     @Override
-    public Author insert(Author author) {
-        //проверка на корректность данных
+    public Author insert(String name) {
+
+        Author author = Author.builder()
+                .name(name)
+                .build();
 
         return authorRepository.save(author);
     }
@@ -39,11 +42,11 @@ public class AuthorServiceImpl implements AuthorService{
     }
 
     @Override
-    public Author update(int id, String nameAuthor) {
+    public Author update(int id, String name) {
 
         Author author = Author.builder()
                 .id(id)
-                .name(nameAuthor)
+                .name(name)
                 .build();
 
         return authorRepository.save(author);

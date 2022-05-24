@@ -5,17 +5,17 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="2022-05-14--0004-comment" author="dsmirnov">
+    <changeSet id="2022-05-22--0005-user.xml" author="dsmirnov">
 
         <!-- Проверяем нет ли уже таблицы с таким названием -->
         <preConditions onFail="MARK_RAN">
             <not>
-                <tableExists tableName="comment"/>
+                <tableExists tableName="user"/>
             </not>
         </preConditions>
 
         <!-- Создаем таблицу -->
-        <createTable tableName="comment">
+        <createTable tableName="user">
 
             <!-- Описываем колонки -->
             <column name="id"
@@ -25,15 +25,14 @@
                              nullable="false"/>
             </column>
 
-            <column name="content" type="VARCHAR(100)">
-                <constraints nullable="false"/>
+            <column name="login" type="VARCHAR(30)">
+                <constraints nullable="false"
+                unique="true"/>
             </column>
 
-            <column name="task_id" type="NUMERIC(19,0)">
+            <column name="password" type="VARCHAR(30)">
                 <constraints nullable="false"
-                             foreignKeyName="fk_comment_task"
-                             references="task(id)"
-                             deleteCascade="true"/>
+                             unique="true"/>
             </column>
         </createTable>
 
