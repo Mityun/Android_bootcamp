@@ -9,7 +9,7 @@ import java.util.List;
 public interface TaskRepository extends JpaRepository<Task, Integer> {
 
     @Override // переопределяем метод чтобы не грузить бд запросами
-    @EntityGraph(attributePaths = {"author", "importance", "commentList"}) // вместо кучи запросов делаем один запрос и создаем одну большую таблицу
+    @EntityGraph(attributePaths = {"author", "importance"}) // вместо кучи запросов делаем один запрос и создаем одну большую таблицу
     List<Task> findAll();
 
     List<Task>  findByName(String name);

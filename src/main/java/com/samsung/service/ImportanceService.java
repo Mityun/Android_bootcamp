@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface ImportanceService {
 
-    Importance insert(Importance importance);
+    Importance insert(String name);
 
     List<Importance> getAll();
 
@@ -14,7 +14,7 @@ public interface ImportanceService {
 
     Importance getByName(String name);
 
-    Importance update(int id, String nameImportance);
+    Importance update(int id, String name);
 
     void deleteById(int id);
 }

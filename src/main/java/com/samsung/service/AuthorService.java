@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface AuthorService {
 
-    Author insert(Author author);
+    Author insert(String name);
 
     List<Author> getAll();
 
@@ -14,7 +14,7 @@ public interface AuthorService {
 
     Author getByName(String name);
 
-    Author update(int id, String nameAuthor);
+    Author update(int id, String name);
 
     void deleteById(int id);
 }

@@ -24,28 +24,16 @@ public class TaskDto {
 
     private ImportanceDto importanceDto;
 
-    private List<CommentDto> commentDtoList;
-
+    private String description;
 
     public static TaskDto toDto(Task task){
-
-        List<CommentDto> commentDtoList1 = new ArrayList<>();
-        if (task.getCommentList() != null){
-            commentDtoList1 = task.getCommentList()
-                    .stream()
-                    .map(CommentDto::tODto)
-                    .collect(Collectors.toList());
-        }else {
-
-            commentDtoList1 = new ArrayList<>();
-        }
 
         return new TaskDto(
                 task.getId(),
                 task.getName(),
                 AuthorDto.toDto(task.getAuthor()),
                 ImportanceDto.toDto(task.getImportance()),
-                commentDtoList1
+                task.getDescription()
                 );
     }
 }

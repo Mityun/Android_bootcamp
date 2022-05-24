@@ -10,6 +10,8 @@ import com.samsung.service.ImportanceService;
 import com.samsung.service.TaskService;
 import com.samsung.view.TaskView;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,12 +29,16 @@ public class TaskController {
 
     @PostMapping("/task")
     public TaskDto createNewTask(
-            @RequestParam String nameTask,
-            @RequestParam String nameImportance,
-            @RequestParam String nameAuthor
+            @RequestBody TaskView taskView
     ) {
+        Task task = taskService.insert(
+                taskView.getName(),
+                taskView.getAuthorId(),
+                taskView.getImportanceId(),
+                taskView.getDescription()
 
-        Task task = taskService.insert(nameTask, nameImportance, nameAuthor);
+        );
+
         return TaskDto.toDto(task);
     }
 
@@ -48,18 +54,27 @@ public class TaskController {
 
 
     @PutMapping("/task/{id}")
-    public TaskDto updateTaskById(
+    public ResponseEntity updateTaskById(
             @PathVariable int id,
             @RequestBody TaskView taskView
-            ) {
-        Task task = taskService.update(
-                id,
-                taskView.getName(),
-                taskView.getImportanceId(),
-                taskView.getAuthorId()
-        );
+            )
+    {
+        try {
+            Task task = taskService.update(
+                    id,
+                    taskView.getName(),
+                    taskView.getAuthorId(),
+                    taskView.getImportanceId(),
+                    taskView.getDescription()
+            );
 
-        return TaskDto.toDto(task);
+            return new ResponseEntity<TaskDto>(TaskDto.toDto(task), HttpStatus.OK);
+        }
+        catch (IllegalArgumentException iae){
+
+            return new ResponseEntity<String>("Несуществующий id!", HttpStatus.NOT_FOUND);
+        }
+
     }
 
     @GetMapping("/task/{id}")

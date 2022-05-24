@@ -8,15 +8,17 @@ public interface TaskService {
 
     Task insert(
             String nameTask,
-            String nameAuthor,
-            String nameImportance
+            int authorId,
+            int importanceId,
+            String description
     );
 
     Task update(
             int id,
             String nameTask,
             int nameAuthor,
-            int nameImportance
+            int nameImportance,
+            String description
     );
 
     List <Task> getAll();
