@@ -34,7 +34,8 @@ public class TaskController {
         Task task = taskService.insert(
                 taskView.getName(),
                 taskView.getAuthorId(),
-                taskView.getImportanceId()
+                taskView.getImportanceId(),
+                taskView.getDescription()
 
         );
 
@@ -63,7 +64,8 @@ public class TaskController {
                     id,
                     taskView.getName(),
                     taskView.getAuthorId(),
-                    taskView.getImportanceId()
+                    taskView.getImportanceId(),
+                    taskView.getDescription()
             );
 
             return new ResponseEntity<TaskDto>(TaskDto.toDto(task), HttpStatus.OK);

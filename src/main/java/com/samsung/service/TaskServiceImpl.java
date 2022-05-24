@@ -22,7 +22,7 @@ public class TaskServiceImpl implements TaskService{
     private final TaskRepository taskRepository;
 
     @Override
-    public Task insert(String nameTask, int authorId, int importanceId) {
+    public Task insert(String nameTask, int authorId, int importanceId, String description) {
 
         try {
             Author author = authorRepository.findById(authorId).orElseThrow(() -> new Exception());
@@ -47,6 +47,7 @@ public class TaskServiceImpl implements TaskService{
                     .name(nameTask)
                     .author(author)
                     .importance(importance)
+                    .description(description)
                     .build();
             return taskRepository.save(task);
         }
@@ -57,7 +58,7 @@ public class TaskServiceImpl implements TaskService{
     }
 
     @Override
-    public Task update(int id, String nameTask, int authorId, int importanceId) {
+    public Task update(int id, String nameTask, int authorId, int importanceId, String description) {
         try {
             Author author = authorRepository.findById(authorId).orElseThrow(IllegalArgumentException::new);
 
@@ -70,6 +71,7 @@ public class TaskServiceImpl implements TaskService{
                     .name(nameTask)
                     .author(author)
                     .importance(importance)
+                    .description(description)
                     .build();
             return taskRepository.save(task);
         }
