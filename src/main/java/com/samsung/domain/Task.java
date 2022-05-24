@@ -31,6 +31,5 @@ public class Task {
     @JoinColumn(name = "importance_id")
     private Importance importance;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "task")
-    private List<Comment> commentList;
+    
 }

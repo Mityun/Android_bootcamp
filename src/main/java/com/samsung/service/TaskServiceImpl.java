@@ -59,23 +59,11 @@ public class TaskServiceImpl implements TaskService{
     @Override
     public Task update(int id, String nameTask, int authorId, int importanceId) {
         try {
-            Author author = authorRepository.findById(authorId).orElseThrow(() -> new Exception());
+            Author author = authorRepository.findById(authorId).orElseThrow(IllegalArgumentException::new);
 
+            Importance importance = importanceRepository.findById(importanceId).orElseThrow(IllegalArgumentException::new);
 
-            if (author == null) {
-                author = Author.builder()
-                        .name(author.getName())
-                        .build();
-            }
-
-            Importance importance = importanceRepository.findById(importanceId).orElseThrow(() -> new Exception());
-
-            if (importance == null) {
-
-                importance = Importance.builder()
-                        .name(importance.getName())
-                        .build();
-            }
+            taskRepository.findById(id).orElseThrow(IllegalArgumentException::new);
 
             Task task = Task.builder()
                     .id(id)
@@ -85,9 +73,16 @@ public class TaskServiceImpl implements TaskService{
                     .build();
             return taskRepository.save(task);
         }
+        catch (IllegalArgumentException iae){
+
+            System.out.println(iae.getMessage() + " Несуществующий id.");
+            throw iae;
+
+        }
         catch (Exception e){
 
-            return null;
+            System.out.println(e.getMessage());
+            throw e;
         }
     }
 
