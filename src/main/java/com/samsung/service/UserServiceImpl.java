@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService{
     @Override
     public User getByLogin(String login) {
 
-        return userRepository.findByName(login);
+        return userRepository.findByLogin(login);
     }
 
     @Override
@@ -55,20 +55,6 @@ public class UserServiceImpl implements UserService{
                 .build();
 
         return user;
-    }
-
-    @Override
-    public User updateUserPasswordById(int id, String password) {
-        //заготовка для обновления пароля
-
-        return userRepository.updateUserPasswordById(id, password);
-    }
-
-    @Override
-    public User updateUserLoginById(int id, String login) {
-        //заготовка для обновления логина
-
-        return userRepository.updateUserLoginById(id, login);
     }
 
     @Override

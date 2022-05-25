@@ -16,8 +16,5 @@ public interface UserService {
 
     User update(int id, String login, String password, int totalHours);
 
-    User updateUserPasswordById(int id, String password);
-    User updateUserLoginById(int id, String login);
-
     void deleteById(int id);
 }

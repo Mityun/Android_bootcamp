@@ -25,7 +25,7 @@ public class TaskServiceImpl implements TaskService{
     public Task insert(String nameTask, int authorId, int importanceId, String description) {
 
         try {
-            Author author = authorRepository.findById(authorId).orElseThrow(() -> new Exception());
+            Author author = authorRepository.findById(authorId).orElseThrow(IllegalArgumentException::new);
 
 
             if (author == null) {
@@ -34,7 +34,7 @@ public class TaskServiceImpl implements TaskService{
                         .build();
             }
 
-            Importance importance = importanceRepository.findById(importanceId).orElseThrow(() -> new Exception());
+            Importance importance = importanceRepository.findById(importanceId).orElseThrow(IllegalArgumentException::new);
 
             if (importance == null) {
 
@@ -51,9 +51,14 @@ public class TaskServiceImpl implements TaskService{
                     .build();
             return taskRepository.save(task);
         }
+        catch (IllegalArgumentException iae) {
+
+            System.out.println(iae.getMessage() + " Несуществующий id.");
+            throw iae;
+        }
         catch (Exception e){
 
-            return null;
+            throw e;
         }
     }
 
@@ -95,7 +100,22 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public Task getById(int id) {
-        return taskRepository.getById(id);
+        try {
+
+            taskRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+
+            return taskRepository.getById(id);
+        }
+        catch (IllegalArgumentException iae){
+
+            System.out.println(iae.getMessage() + " Несуществующий id.");
+            throw iae;
+        }
+        catch (Exception e){
+
+            System.out.println(e.getMessage());
+            throw e;
+        }
     }
 
     @Override
@@ -105,8 +125,23 @@ public class TaskServiceImpl implements TaskService{
 
     @Override
     public void deleteById(int id) {
+        try {
 
-        taskRepository.deleteById(id);
+            taskRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+
+            taskRepository.deleteById(id);
+        }
+        catch (IllegalArgumentException iae){
+
+            System.out.println(iae.getMessage() + " Несуществующий id.");
+            throw iae;
+        }
+        catch (Exception e){
+
+            System.out.println(e.getMessage());
+            throw e;
+        }
+
 
     }
 }

@@ -70,17 +70,6 @@ public class UserController {
         return UserDto.toDto(user);
     }
 
-    @PostMapping("/user/{id}/login")
-    public UserDto updateLoginById(
-            @PathVariable int id,
-            @RequestParam String login
-    ) {
-
-        return UserDto.toDto(
-                userService.updateUserLoginById(id, login)
-        );
-    }
-
     @GetMapping("/user/login")
     public UserDto getUserByLogin(@RequestParam String login) {
 
