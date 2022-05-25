@@ -5,7 +5,7 @@
                    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-    <changeSet id="2022-05-22--0005-user.xml" author="dsmirnov">
+    <changeSet id="2022-05-22--0004-user.xml" author="dsmirnov">
 
         <!-- Проверяем нет ли уже таблицы с таким названием -->
         <preConditions onFail="MARK_RAN">
@@ -33,6 +33,11 @@
             <column name="password" type="VARCHAR(30)">
                 <constraints nullable="false"
                              unique="true"/>
+            </column>
+
+            <column name="total_hours"
+                    type="NUMERIC(19,0)">
+                <constraints nullable="false"/>
             </column>
         </createTable>
 
